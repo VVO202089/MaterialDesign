@@ -1,8 +1,8 @@
-package com.example.materialdesign.view
+package com.example.materialdesign
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.materialdesign.R
+import com.example.materialdesign.view.ImageFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null){
             supportFragmentManager.beginTransaction()
-                .replace(R.id.imageFragment,ImageFragment.newInstance())
+                .replace(R.id.imageFragment, ImageFragment.newInstance())
                 .commitNow()
         }
     }

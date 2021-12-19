@@ -1,4 +1,4 @@
-package com.example.materialdesign.chips
+package geekbarains.material.ui.chips
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,14 +10,13 @@ import com.example.materialdesign.R
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.fragment_chips.*
 
-class ChipsFragment: Fragment() {
+class ChipsFragment : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_chips, container,false)
+        return inflater.inflate(R.layout.fragment_chips, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

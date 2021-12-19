@@ -11,12 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
+import com.example.materialdesign.MainActivity
 import com.example.materialdesign.R
-import com.example.materialdesign.chips.ChipsFragment
 import com.example.materialdesign.viewmodel.AppState
 import com.example.materialdesign.viewmodel.EveryDayImageViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import geekbarains.material.ui.chips.ChipsFragment
 import kotlinx.android.synthetic.main.daily_image_fragment.*
 
 class ImageFragment : Fragment() {
