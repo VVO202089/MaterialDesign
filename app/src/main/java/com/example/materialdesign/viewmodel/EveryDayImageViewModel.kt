@@ -3,6 +3,7 @@ package com.example.materialdesign.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.materialdesign.BuildConfig
 import com.example.materialdesign.domain.PODServerResponseData
 import com.example.materialdesign.repository.NasaApiRetrofit
 import retrofit2.Call
@@ -22,7 +23,7 @@ class EveryDayImageViewModel(
     private fun sendServerRequest() {
         liveDataForViewToObserve.value = AppState.Loading(null)
         //val apiKey: String = BuildConfig.NASA_API_KEY
-        val apiKey: String = "hPssyxxGBGmWdLsRmRo7pRW0cQGktcS7dcD8Gflw" // временное решение
+        val apiKey: String = BuildConfig.NASA_API_KEY
         if (apiKey.isBlank()) {
             AppState.Error(Throwable("You need API key"))
         } else {

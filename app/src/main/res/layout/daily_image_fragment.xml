@@ -17,7 +17,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/text_style"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/search_wiki"
@@ -40,6 +40,7 @@
 
             <com.example.materialdesign.util.EquilateralImageView
                 android:id="@+id/image_view_nasa_image"
+                style="@style/text_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -49,6 +50,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_no_photo_vector" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_theme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/DarkTheme"
+                app:layout_constraintTop_toBottomOf="@+id/image_view_nasa_image"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

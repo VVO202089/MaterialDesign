@@ -1,26 +1,23 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-
 }
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
+
     compileSdk 31
 
     buildFeatures {
         viewBinding true
     }
 
-    /* пока не работает, хз почему, надо разбираться
-   buildTypes.each {
+    buildTypes.each {
         Properties properties = new Properties()
-        properties.load(project.rootProject.file("app.properties").newDataInputStream())
-        def nasaApiKey = properties.getProperty("NASA_API_KEY", "")
-        it.buildConfigField("String", "NASA_API_KEY", nasaApiKey)
-   }
-    */
+        properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
+        def apiNasa = properties.getProperty("NASA_API_KEY", "")
+        it.buildConfigField("String", "NASA_API_KEY", apiNasa)
+    }
 
     defaultConfig {
         applicationId "com.example.materialdesign"
@@ -52,6 +49,7 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation "androidx.preference:preference-ktx:1.1.1"
 
     // retrofit to use network
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
@@ -59,7 +57,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
 
     // to use kotlin features
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.7.0'
 
     // to use viewModel
