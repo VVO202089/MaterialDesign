@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.materialdesign.R
+import com.example.materialdesign.viewmodel.ImageViewModel_Lesson3
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_navigation_layout.*
 
-class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
+class BottomNavigationDrawerFragment() : BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,5 +30,6 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
             }
             true
         }
+
     }
 }

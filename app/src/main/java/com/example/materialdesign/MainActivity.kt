@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.materialdesign.view.ImageFragment
+import com.example.materialdesign.view.ImageFragmentLesson3
 import com.example.materialdesign.view.SETTINGS
 
 const val MY_THEME = "MyTheme"
@@ -37,10 +38,18 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
 
+            /* lesson2
             supportFragmentManager.beginTransaction()
                 .replace(R.id.imageFragment, ImageFragment.newInstance())
                 .commit()
+            */
+
+            //lesson3
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.imageFragment, ImageFragmentLesson3.newInstance())
+                .commit()
         }
+
     }
 
     override fun setTheme(resId: Int) {
