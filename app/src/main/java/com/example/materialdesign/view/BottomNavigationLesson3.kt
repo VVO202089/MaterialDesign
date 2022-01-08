@@ -27,15 +27,13 @@ class BottomNavigationLesson3(val imageLesson3_VM: ImageViewModel_Lesson3) :Bott
         // lesson 3
         bottom_navigation_view.setOnNavigationItemSelectedListener{ menuItem ->
             when (menuItem.itemId) {
-                R.id.bottom_view_earth ->{
-                    //imageLesson3_VM.getData()
-                   //     .observe(viewLifecycleOwner, Observer<AppState> { renderData(it) })
+                R.id.bottom_view_mars_1 ->{
                     Toast.makeText(context, "Земля", Toast.LENGTH_SHORT).show()
                 }
-                R.id.bottom_view_mars -> {
+                R.id.bottom_view_mars_2 -> {
                     Toast.makeText(context, "Марс", Toast.LENGTH_SHORT).show()
                 }
-                R.id.bottom_view_venus -> {
+                R.id.bottom_view_mars_3 -> {
                     Toast.makeText(context, "Венера", Toast.LENGTH_SHORT).show()
                 }
             }

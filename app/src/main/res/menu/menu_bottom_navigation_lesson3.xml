@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/bottom_view_venus"
-        android:title="Венера" />
+        android:id="@+id/bottom_view_mars_3"
+        android:title="3 месяца" />
     <item
-        android:id="@+id/bottom_view_earth"
-        android:title="Земля" />
+        android:id="@+id/bottom_view_mars_2"
+        android:title="2 месяца" />
 
     <item
-        android:id="@+id/bottom_view_mars"
-        android:title="Марс" />
+        android:id="@+id/bottom_view_mars_1"
+        android:checked="true"
+        android:title="1 месяц" />
 </menu>
