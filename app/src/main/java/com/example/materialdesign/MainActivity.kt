@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        // трололо
         super.onCreate(savedInstanceState)
 
         mSetting = getSharedPreferences(SETTINGS, Context.MODE_PRIVATE)!!
