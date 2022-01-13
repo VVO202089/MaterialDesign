@@ -1,6 +1,5 @@
 package com.example.materialdesign.view
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -13,24 +12,23 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
-import com.example.materialdesign.MY_THEME
+import com.example.materialdesign.AppTheme
 import com.example.materialdesign.MainActivity
 import com.example.materialdesign.R
 import com.example.materialdesign.viewmodel.AppState
 import com.example.materialdesign.viewmodel.EveryDayImageViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import geekbarains.material.ui.chips.ChipsFragment
 import kotlinx.android.synthetic.main.daily_image_fragment.*
 
 const val SETTINGS = "SETTINGS"
 
 class ImageFragment : Fragment() {
 
+    private val appTheme by lazy { AppTheme() }
+
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
-    //private var _binding: DailyImageFragmentBinding? = null
-    //private val binding get() = _binding
     private lateinit var mSettting: SharedPreferences
     private val everyDayVM by lazy {
         ViewModelProvider(this).get(EveryDayImageViewModel::class.java)
@@ -55,48 +53,33 @@ class ImageFragment : Fragment() {
 
         return inflater.inflate(R.layout.daily_image_fragment, container, false)
 
-        //_binding = DailyImageFragmentBinding.inflate(inflater, container, false)
-        // val root = binding!!.root
-
-        //return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
-/*
-        val bundle = arguments
-
-        if (bundle != null){
-            themeApp = bundle.getInt("Theme")
-        }
-*/
-        mSettting = requireActivity().getSharedPreferences(SETTINGS, Context.MODE_PRIVATE)!!
 
         input_layout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${input_edit_text.text.toString()}")
             })
         }
+
+        val currentTheme = appTheme.getTheme(requireContext().applicationContext)
+        /*
+        switch_theme.isChecked = (currentTheme == 1)
+
         switch_theme.setOnCheckedChangeListener { buttonView, isChecked ->
 
-            val theme = mSettting.getInt(MY_THEME, 0)
+            appTheme.setTheme(requireContext().applicationContext,isChecked)
+            applyAppTheme()
 
-            if (isChecked && theme != 2131755475) {
-                val editor = mSettting.edit()
-                editor.putInt(SETTINGS, R.style.Theme_MaterialDesign_Dark)
-                editor.apply()
-                activity?.recreate()
-            } else if (!isChecked) {
-                val editor = mSettting.edit()
-                editor.putInt(SETTINGS, R.style.Theme_MaterialDesign)
-                editor.apply()
-                activity?.recreate()
-            }
         }
+
+         */
         setBottomAppBar(view)
     }
 
+    /*
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_bottom_bar, menu)
@@ -116,16 +99,7 @@ class ImageFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        //_binding = null
-    }
-
-
-    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-    }
+     */
 
     private fun renderData(appState: AppState?) {
 
@@ -182,5 +156,12 @@ class ImageFragment : Fragment() {
                 bottom_app_bar.replaceMenu(R.menu.menu_bottom_bar)
             }
         }
+    }
+
+    private fun applyAppTheme() {
+        requireActivity().recreate()
+        requireActivity().supportFragmentManager.beginTransaction()
+            .remove(this@ImageFragment)
+            .commitAllowingStateLoss()
     }
 }

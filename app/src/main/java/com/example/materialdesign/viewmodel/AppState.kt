@@ -2,7 +2,6 @@ package com.example.materialdesign.viewmodel
 
 import com.example.materialdesign.domain.PODServerResponseData
 import com.example.materialdesign.domain.PhotosDataResponse
-import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 
 sealed class AppState {

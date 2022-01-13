@@ -2,8 +2,6 @@ package com.example.materialdesign.repository
 
 import com.example.materialdesign.domain.PODServerResponseData
 import com.example.materialdesign.domain.PhotosDataResponse
-import com.google.gson.JsonObject
-import com.google.gson.JsonPrimitive
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

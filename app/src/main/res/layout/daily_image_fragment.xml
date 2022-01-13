@@ -2,7 +2,9 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.ImageFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -50,13 +52,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_no_photo_vector" />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch_theme"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/DarkTheme"
-                app:layout_constraintTop_toBottomOf="@+id/image_view_nasa_image"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,6 +6,8 @@ import android.view.*
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
@@ -15,7 +17,6 @@ import com.example.materialdesign.viewmodel.ImageViewModel_Lesson3
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_navigation_layout_lesson3.bottom_navigation_view
 import kotlinx.android.synthetic.main.image_fragment_lesson3.*
-import java.lang.Math.log
 
 class ImageFragmentLesson3 : Fragment() {
 
@@ -29,6 +30,11 @@ class ImageFragmentLesson3 : Fragment() {
 
     companion object {
         fun newInstance() = ImageFragmentLesson3()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -76,20 +82,22 @@ class ImageFragmentLesson3 : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_bar_lesson3, menu)
+        inflater.inflate(R.menu.menu_bottom_bar, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.app_bar_settings -> toast("Настройки")
-            android.R.id.home -> {
-                activity?.let {
-                    //BottomNavigationLesson3(imageLesson3).show(it.supportFragmentManager, "tag")
+        return when (item.itemId) {
+            R.id.app_bar_settings -> {
+                childFragmentManager.commit {
+                    setReorderingAllowed(true).addToBackStack(null)
+                    replace<SettingFragment>(R.id.imageFragment)
                 }
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
             }
         }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
@@ -106,43 +114,32 @@ class ImageFragmentLesson3 : Fragment() {
         when (appState) {
 
             is AppState.Error -> {
-                // toast(appState.error.message.toString())
+                Toast.makeText(activity, appState.error.message.toString(), Toast.LENGTH_SHORT).show()
             }
             is AppState.Loading -> {
-                //  toast("Идет загрузка")
+                Toast.makeText(activity, "Идет загрузка", Toast.LENGTH_SHORT).show()
             }
 
             is AppState.Success_Image_Mars -> {
-
+                val arrPhotos = appState.serverResponseData.photos
                 // в ответ получаем массив "PhotosDataResponse", берем 1 запись
-                val photos = appState.serverResponseData.photos.get(0)
-                val url = photos.img_src
-                if (url.isNullOrEmpty()) {
-                    // выводим сообщение
-                    toast("Пустая ссылка")
-                } else {
-                    image_view.load(url) {
-                        viewLifecycleOwner
-                        error(R.drawable.ic_load_error_vector)
-                        placeholder(R.drawable.ic_no_photo_vector)
+                if (arrPhotos.size > 0){
+                    val photos = arrPhotos.get(0)
+                    val url = photos.img_src
+                    if (url.isNullOrEmpty()) {
+                        // выводим сообщение
+                        Toast.makeText(activity, "Пустая ссылка", Toast.LENGTH_SHORT).show()
+                    } else {
+                        image_view.load(url) {
+                            viewLifecycleOwner
+                            error(R.drawable.ic_load_error_vector)
+                            placeholder(R.drawable.ic_no_photo_vector)
+                        }
                     }
+                    Toast.makeText(activity, "Готово", Toast.LENGTH_SHORT).show()
                 }
-
-            }
-            is AppState.Success_Image_Earth -> {
-                log(12.0)
             }
         }
 
     }
-
-    private fun toast(text: String?) {
-        if (context != null) {
-            Toast.makeText(context, text, Toast.LENGTH_SHORT).apply {
-                setGravity(Gravity.BOTTOM, 0, 250)
-                show()
-            }
-        }
-    }
-
 }
