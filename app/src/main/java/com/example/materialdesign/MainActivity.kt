@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity() {
             add<FragmentLesson4>(R.id.imageFragment)
         }
              */
+
+            // lesson5
         }
     }
 
