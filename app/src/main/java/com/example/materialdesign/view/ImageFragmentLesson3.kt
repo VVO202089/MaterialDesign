@@ -24,7 +24,7 @@ class ImageFragmentLesson3 : Fragment() {
 
     private var date = Calendar.getInstance()
 
-    private val imageLesson3 by lazy {
+    private val imageLesson3ViewModel by lazy {
         ViewModelProvider(this).get(ImageViewModel_Lesson3::class.java)
     }
 
@@ -40,7 +40,7 @@ class ImageFragmentLesson3 : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         date.add(Calendar.MONTH, -1)
-        imageLesson3.getData(
+        imageLesson3ViewModel.getData(
             "${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH) + 1}-${date.get(Calendar.DAY_OF_MONTH)}")
             .observe(viewLifecycleOwner, Observer<AppState> { renderData(it) })
     }
@@ -63,18 +63,18 @@ class ImageFragmentLesson3 : Fragment() {
             when (it.itemId) {
                 R.id.bottom_view_mars_1 -> {
                     date.add(Calendar.MONTH, -1)
-                    imageLesson3.getData(
+                    imageLesson3ViewModel.getData(
                         "${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH) + 1}-${date.get(Calendar.DAY_OF_MONTH)}")
                         .observe(viewLifecycleOwner, Observer<AppState> { renderData(it) })
                 }
                 R.id.bottom_view_mars_2 -> {
                     date.add(Calendar.MONTH, -2)
-                    imageLesson3.getData("${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH) + 1}-${date.get(Calendar.DAY_OF_MONTH)}")
+                    imageLesson3ViewModel.getData("${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH) + 1}-${date.get(Calendar.DAY_OF_MONTH)}")
                         .observe(viewLifecycleOwner, Observer<AppState> { renderData(it) })
                 }
                 R.id.bottom_view_mars_3 -> {
                     date.add(Calendar.MONTH, -3)
-                    imageLesson3.getData("${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH) + 1}-${date.get(Calendar.DAY_OF_MONTH)}")
+                    imageLesson3ViewModel.getData("${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH) + 1}-${date.get(Calendar.DAY_OF_MONTH)}")
                         .observe(viewLifecycleOwner, Observer<AppState> { renderData(it) })
                 }
             }
@@ -125,7 +125,7 @@ class ImageFragmentLesson3 : Fragment() {
                 // в ответ получаем массив "PhotosDataResponse", берем 1 запись
                 if (arrPhotos.size > 0){
                     val photos = arrPhotos.get(0)
-                    val url = photos.img_src
+                    val url = photos.imgSrc
                     if (url.isNullOrEmpty()) {
                         // выводим сообщение
                         Toast.makeText(activity, "Пустая ссылка", Toast.LENGTH_SHORT).show()

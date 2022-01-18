@@ -11,16 +11,10 @@ interface ImageEveryDayAPI {
     @GET("planetary/apod")
     fun getImage(@Query("api_key") apiKey: String): Call<PODServerResponseData>
 
-    /*
-    @GET("venus-photos/api/v1/rovers/curiosity/photos?earth_date=2021-12-7")
-    fun getVenus(@Query("api_key") apiKey: String): Call<PhotosDataResponse>
-
-    @GET("EPIC/archive/natural/2019/05/30/png/epic_1b_20190530011359.png")
-    fun getEarth(@Query("api_key") apiKey: String): Call<JsonPrimitive>
-    "mars-photos/api/v1/rovers/curiosity/photos?earth_date=2021-12-7"
-     */
-
     @GET("mars-photos/api/v1/rovers/curiosity/photos")
-    fun getMars(@Query("earth_date") earth_date: String,@Query("api_key") apiKey: String): Call<PhotosDataResponse>
+    fun getMars(
+        @Query("earth_date") earth_date: String,
+        @Query("api_key") apiKey: String
+    ): Call<PhotosDataResponse>
 
 }
