@@ -11,8 +11,6 @@ import com.example.materialdesign.view.ImageFragment
 import com.example.materialdesign.view.ImageFragmentLesson3
 import com.example.materialdesign.view.SettingFragment
 
-const val MY_THEME = "MyTheme"
-
 class MainActivity : AppCompatActivity() {
 
     private val appTheme by lazy { AppTheme() }
