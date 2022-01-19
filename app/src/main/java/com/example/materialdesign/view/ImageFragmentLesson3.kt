@@ -1,6 +1,5 @@
 package com.example.materialdesign.view
 
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -22,14 +21,8 @@ class ImageFragmentLesson3 : Fragment() {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
-    private var date = Calendar.getInstance()
-
     private val imageLesson3ViewModel by lazy {
         ViewModelProvider(this).get(ImageViewModel_Lesson3::class.java)
-    }
-
-    companion object {
-        fun newInstance() = ImageFragmentLesson3()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,9 +32,7 @@ class ImageFragmentLesson3 : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        date.add(Calendar.MONTH, -1)
-        imageLesson3ViewModel.getData(
-            "${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH) + 1}-${date.get(Calendar.DAY_OF_MONTH)}")
+        imageLesson3ViewModel.getData(-1)
             .observe(viewLifecycleOwner, Observer<AppState> { renderData(it) })
     }
 
@@ -59,22 +50,17 @@ class ImageFragmentLesson3 : Fragment() {
 
         bottom_navigation_view.setOnNavigationItemReselectedListener {
 
-            date = Calendar.getInstance()
             when (it.itemId) {
                 R.id.bottom_view_mars_1 -> {
-                    date.add(Calendar.MONTH, -1)
-                    imageLesson3ViewModel.getData(
-                        "${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH) + 1}-${date.get(Calendar.DAY_OF_MONTH)}")
+                    imageLesson3ViewModel.getData(-1)
                         .observe(viewLifecycleOwner, Observer<AppState> { renderData(it) })
                 }
                 R.id.bottom_view_mars_2 -> {
-                    date.add(Calendar.MONTH, -2)
-                    imageLesson3ViewModel.getData("${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH) + 1}-${date.get(Calendar.DAY_OF_MONTH)}")
+                    imageLesson3ViewModel.getData(-2)
                         .observe(viewLifecycleOwner, Observer<AppState> { renderData(it) })
                 }
                 R.id.bottom_view_mars_3 -> {
-                    date.add(Calendar.MONTH, -3)
-                    imageLesson3ViewModel.getData("${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH) + 1}-${date.get(Calendar.DAY_OF_MONTH)}")
+                    imageLesson3ViewModel.getData(-3)
                         .observe(viewLifecycleOwner, Observer<AppState> { renderData(it) })
                 }
             }
@@ -114,7 +100,8 @@ class ImageFragmentLesson3 : Fragment() {
         when (appState) {
 
             is AppState.Error -> {
-                Toast.makeText(activity, appState.error.message.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, appState.error.message.toString(), Toast.LENGTH_SHORT)
+                    .show()
             }
             is AppState.Loading -> {
                 Toast.makeText(activity, "Идет загрузка", Toast.LENGTH_SHORT).show()
@@ -123,7 +110,7 @@ class ImageFragmentLesson3 : Fragment() {
             is AppState.Success_Image_Mars -> {
                 val arrPhotos = appState.serverResponseData.photos
                 // в ответ получаем массив "PhotosDataResponse", берем 1 запись
-                if (arrPhotos.size > 0){
+                if (arrPhotos.size > 0) {
                     val photos = arrPhotos.get(0)
                     val url = photos.imgSrc
                     if (url.isNullOrEmpty()) {
