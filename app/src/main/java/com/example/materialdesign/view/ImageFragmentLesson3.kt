@@ -57,6 +57,7 @@ class ImageFragmentLesson3 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         bottom_navigation_view.setOnNavigationItemReselectedListener {
 
             date = Calendar.getInstance()

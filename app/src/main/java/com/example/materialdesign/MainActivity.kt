@@ -8,6 +8,7 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.materialdesign.view.ImageFragment
+import com.example.materialdesign.view.ImageFragmentLesson3
 import com.example.materialdesign.view.SettingFragment
 
 const val MY_THEME = "MyTheme"
@@ -30,15 +31,15 @@ class MainActivity : AppCompatActivity() {
             // lesson2,lesson4
             openImageFragment()
 
-            //lesson3
-            /*
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-                .addToBackStack(null)
-            add<ImageFragmentLesson3>(R.id.imageFragment)
-        }
+            //lesson3,lesson5
 
-             */
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                    .addToBackStack(null)
+                add<ImageFragmentLesson3>(R.id.imageFragment)
+            }
+
+
             // lesson4 эксперименты
             /*
         supportFragmentManager.commit {
@@ -48,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         }
              */
 
-            // lesson5
         }
     }
 
