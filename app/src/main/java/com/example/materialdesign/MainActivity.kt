@@ -26,18 +26,18 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
 
-            // lesson2,lesson4
+            // lesson2,lesson4,,lesson5
             openImageFragment()
 
-            //lesson3,lesson5
-
+            //lesson3
+            /*
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
                     .addToBackStack(null)
                 add<ImageFragmentLesson3>(R.id.imageFragment)
             }
 
-
+             */
             // lesson4 эксперименты
             /*
         supportFragmentManager.commit {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -41,7 +42,8 @@
                 app:endIconMode="custom"
                 app:helperText="@string/wiki_helper_text"
                 app:layout_constraintBottom_toTopOf="@+id/image_view"
-                app:layout_constraintStart_toEndOf="parent">
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/container_lesson3">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_edit_text"
@@ -50,18 +52,24 @@
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.example.materialdesign.util.EquilateralImageView
-                android:id="@+id/image_view_nasa_image"
+            <FrameLayout
+                android:id="@+id/container_lesson3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/photo_of_the_day_stub"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.7"
-                app:srcCompat="@drawable/ic_no_photo_vector" />
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="10dp">
+
+                <com.example.materialdesign.util.EquilateralImageView
+                    android:id="@+id/image_view_nasa_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/photo_of_the_day_stub"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/input_layout"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_no_photo_vector" />
+            </FrameLayout>
+
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
     </androidx.core.widget.NestedScrollView>

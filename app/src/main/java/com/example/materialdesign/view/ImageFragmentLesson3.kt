@@ -14,12 +14,15 @@ import com.example.materialdesign.R
 import com.example.materialdesign.viewmodel.AppState
 import com.example.materialdesign.viewmodel.ImageViewModel_Lesson3
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.android.synthetic.main.bottom_navigation_layout_lesson3.bottom_navigation_view
 import kotlinx.android.synthetic.main.image_fragment_lesson3.*
 
 class ImageFragmentLesson3 : Fragment() {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+
+    companion object{
+        fun newInstance() = ImageFragmentLesson3()
+    }
 
     private val imageLesson3ViewModel by lazy {
         ViewModelProvider(this).get(ImageViewModel_Lesson3::class.java)
@@ -46,8 +49,8 @@ class ImageFragmentLesson3 : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+        super.onViewCreated(view, savedInstanceState)
 
         bottom_navigation_view.setOnNavigationItemReselectedListener {
 

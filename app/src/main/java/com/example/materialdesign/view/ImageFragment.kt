@@ -4,7 +4,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.transition.ChangeBounds
+import android.transition.ChangeImageTransform
+import android.transition.TransitionManager
+import android.transition.TransitionSet
 import android.view.*
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -20,6 +25,13 @@ import com.example.materialdesign.viewmodel.EveryDayImageViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.daily_image_fragment.*
+import kotlinx.android.synthetic.main.daily_image_fragment.bottom_app_bar
+import kotlinx.android.synthetic.main.daily_image_fragment.fab
+import kotlinx.android.synthetic.main.daily_image_fragment.image_view_nasa_image
+import kotlinx.android.synthetic.main.daily_image_fragment.input_edit_text
+import kotlinx.android.synthetic.main.daily_image_fragment.input_layout
+import kotlinx.android.synthetic.main.fragment_main_start.*
+import kotlinx.android.synthetic.main.image_fragment_lesson3.*
 
 const val SETTINGS = "SETTINGS"
 
@@ -30,6 +42,8 @@ class ImageFragment : Fragment() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     private lateinit var mSettting: SharedPreferences
+    private var isExpanded = false
+
     private val everyDayVM by lazy {
         ViewModelProvider(this).get(EveryDayImageViewModel::class.java)
     }
@@ -58,6 +72,22 @@ class ImageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        image_view_nasa_image.setOnClickListener {
+
+            isExpanded = !isExpanded
+            TransitionManager.beginDelayedTransition(
+                container_lesson3, TransitionSet()
+                    .addTransition(ChangeBounds())
+                    .addTransition(ChangeImageTransform())
+            )
+
+            val params: ViewGroup.LayoutParams = image_view_nasa_image.layoutParams
+            params.height =
+                if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+            image_view_nasa_image.layoutParams = params
+            image_view_nasa_image.scaleType =
+                if (isExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
+        }
         input_layout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${input_edit_text.text.toString()}")
