@@ -6,13 +6,16 @@
     android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf = "parent"
+        app:layout_constraintBottom_toTopOf = "@+id/container_lesson3">
 
         <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             app:layoutDescription="@xml/motion_scene">
@@ -52,28 +55,24 @@
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <FrameLayout
-                android:id="@+id/container_lesson3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:layout_editor_absoluteX="10dp">
-
-                <com.example.materialdesign.util.EquilateralImageView
-                    android:id="@+id/image_view_nasa_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/photo_of_the_day_stub"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/input_layout"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_no_photo_vector" />
-            </FrameLayout>
-
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
     </androidx.core.widget.NestedScrollView>
 
+    <FrameLayout
+        android:id="@+id/container_lesson3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/nestedScrollView">
+
+        <com.example.materialdesign.util.EquilateralImageView
+            android:id="@+id/image_view_nasa_image"
+            android:layout_width="match_parent"
+            android:layout_height="484dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/photo_of_the_day_stub"
+            app:srcCompat="@drawable/ic_no_photo_vector" />
+    </FrameLayout>
     <include layout="@layout/bottom_sheet_layout" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -95,4 +94,6 @@
         app:layout_anchor="@id/bottom_app_bar"
         app:srcCompat="@drawable/ic_plus_fab"
         app:tint="#FFFFFF" />
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
