@@ -11,21 +11,21 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class EveryDayImageViewModel(
-    private val liveDataForViewToObserve: MutableLiveData<AppState> = MutableLiveData(),
-    private val apiRetrofit: NasaApiRetrofit =  NasaApiRetrofit()
-):ViewModel() {
+    private val liveDataForViewToObserve: MutableLiveData<ImageData> = MutableLiveData(),
+    private val apiRetrofit: NasaApiRetrofit = NasaApiRetrofit()
+) : ViewModel() {
 
-    fun getData(): LiveData<AppState> {
+    fun getData(): LiveData<ImageData> {
         sendServerRequest()
         return liveDataForViewToObserve
     }
 
     private fun sendServerRequest() {
-        liveDataForViewToObserve.value = AppState.Loading(null)
+        liveDataForViewToObserve.value = ImageData.Loading(null)
         //val apiKey: String = BuildConfig.NASA_API_KEY
         val apiKey: String = BuildConfig.NASA_API_KEY
         if (apiKey.isBlank()) {
-            AppState.Error(Throwable("You need API key"))
+            ImageData.Error(Throwable("You need API key"))
         } else {
             apiRetrofit.nasaApiRetrofit().getImage(apiKey).enqueue(object :
                 Callback<PODServerResponseData> {
@@ -35,21 +35,21 @@ class EveryDayImageViewModel(
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         liveDataForViewToObserve.value =
-                            AppState.Success(response.body()!!)
+                            ImageData.Success(response.body()!!)
                     } else {
                         val message = response.message()
                         if (message.isNullOrEmpty()) {
                             liveDataForViewToObserve.value =
-                                AppState.Error(Throwable("Unidentified error"))
+                                ImageData.Error(Throwable("Unidentified error"))
                         } else {
                             liveDataForViewToObserve.value =
-                                AppState.Error(Throwable(message))
+                                ImageData.Error(Throwable(message))
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<PODServerResponseData>, t: Throwable) {
-                    liveDataForViewToObserve.value = AppState.Error(t)
+                    liveDataForViewToObserve.value = ImageData.Error(t)
                 }
             })
         }
