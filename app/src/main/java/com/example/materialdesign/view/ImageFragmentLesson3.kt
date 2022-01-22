@@ -129,8 +129,6 @@ class ImageFragmentLesson3 : Fragment() {
                     if (url.isNullOrEmpty()) {
                         // выводим сообщение
                         Toast.makeText(activity, "Пустая ссылка", Toast.LENGTH_SHORT).show()
-                        // для теста
-                        Toast.makeText(activity, "Тест!", Toast.LENGTH_SHORT).show()
                     } else {
                         image_view.load(url) {
                             viewLifecycleOwner
