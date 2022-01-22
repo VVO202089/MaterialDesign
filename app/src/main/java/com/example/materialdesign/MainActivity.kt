@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.example.materialdesign.view.FragmentLesson4
 import com.example.materialdesign.view.ImageFragment
 import com.example.materialdesign.view.SettingFragment
 
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
 
             // lesson2,lesson4
-            openImageFragment()
+            //openImageFragment()
 
             //lesson3
             /*
@@ -38,13 +39,13 @@ class MainActivity : AppCompatActivity() {
 
              */
             // lesson4 эксперименты
-            /*
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-                .addToBackStack(null)
-            add<FragmentLesson4>(R.id.imageFragment)
-        }
-             */
+
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                    .addToBackStack(null)
+                add<FragmentLesson4>(R.id.imageFragment)
+            }
+
         }
     }
 
