@@ -9,7 +9,7 @@ import com.example.materialdesign.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_navigation_layout.*
 
-class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
+class BottomNavigationDrawerFragment() : BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,5 +29,6 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
             }
             true
         }
+
     }
 }
