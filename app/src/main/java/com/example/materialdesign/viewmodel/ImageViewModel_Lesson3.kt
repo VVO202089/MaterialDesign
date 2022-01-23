@@ -12,42 +12,31 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ImageViewModel_Lesson3(
-    private val liveDataForViewToObserve: MutableLiveData<AppState> = MutableLiveData(),
+    private val liveDataForViewToObserve: MutableLiveData<ImageDataMars> = MutableLiveData(),
     private val apiRetrofit: NasaApiRetrofit = NasaApiRetrofit(),
-    private val date: Calendar? = Calendar.getInstance()
+    private val calendar: Calendar = Calendar.getInstance()
 ) : ViewModel() {
 
-    fun getData(index: Int): LiveData<AppState> {
-        date?.add(Calendar.MONTH, index)
-        val dateString = when (index) {
-            -1 -> "${date?.get(Calendar.YEAR)}-${date?.get(Calendar.MONTH)!! + 1}-${
-                date?.get(
-                    Calendar.DAY_OF_MONTH
-                )
-            }"
-            -2 -> "${date?.get(Calendar.YEAR)}-${date?.get(Calendar.MONTH)!! + 1}-${
-                date?.get(
-                    Calendar.DAY_OF_MONTH
-                )
-            }"
-            -3 -> "${date?.get(Calendar.YEAR)}-${date?.get(Calendar.MONTH)!! + 1}-${
-                date?.get(
-                    Calendar.DAY_OF_MONTH
-                )
-            }"
-            else -> "$index не определен"
-        }
+    fun getData(indexMonth: Int): LiveData<ImageDataMars> {
+        calendar.add(
+            Calendar.MONTH,
+            indexMonth
+        ) // смещаем переданную дату на на месяц в зависимости от того, какая вкладка выбрана
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)!! + 1
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val dateString = "${year}-${month}-${day}"
         getPlanet(dateString)
         return liveDataForViewToObserve
     }
 
     private fun getPlanet(dateString: String) {
 
-        liveDataForViewToObserve.value = AppState.Loading(null)
+        liveDataForViewToObserve.value = ImageDataMars.Loading(null)
         val apiKey: String = BuildConfig.NASA_API_KEY
 
         if (apiKey.isBlank()) {
-            AppState.Error(Throwable("You need API key"))
+            ImageDataMars.Error(Throwable("You need API key"))
         } else {
             parseImage(dateString, apiKey)
         }
@@ -62,16 +51,29 @@ class ImageViewModel_Lesson3(
                 response: Response<PhotosDataResponse>
             ) {
                 if (response.isSuccessful && response.body() != null) {
-                    liveDataForViewToObserve.value =
-                        AppState.Success_Image_Mars(response.body()!!)
+                    val arrPhotos = response.body()!!.photos
+                    if (arrPhotos.size > 0) {
+                        val photos = arrPhotos.get(0)
+                        val url = photos.imgSrc
+                        if (url.isNullOrEmpty()) {
+                            ImageDataMars.Error(Throwable("Пустая ссылка!"))
+                        } else {
+                            liveDataForViewToObserve.value =
+                                ImageDataMars.Success(url)
+                        }
+
+                    } else {
+                        ImageDataMars.Error(Throwable("Массив с фото пустой!"))
+                    }
+
                 } else {
                     val message = response.message()
                     if (message.isNullOrEmpty()) {
                         liveDataForViewToObserve.value =
-                            AppState.Error(Throwable("Unidentified error"))
+                            ImageDataMars.Error(Throwable("Unidentified error"))
                     } else {
                         liveDataForViewToObserve.value =
-                            AppState.Error(Throwable(message))
+                            ImageDataMars.Error(Throwable(message))
                     }
                 }
             }
@@ -80,7 +82,7 @@ class ImageViewModel_Lesson3(
                 call: Call<PhotosDataResponse>,
                 t: Throwable
             ) {
-                liveDataForViewToObserve.value = AppState.Error(t)
+                liveDataForViewToObserve.value = ImageDataMars.Error(t)
             }
         })
     }

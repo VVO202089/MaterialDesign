@@ -4,12 +4,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.transition.ChangeBounds
-import android.transition.ChangeImageTransform
-import android.transition.TransitionManager
-import android.transition.TransitionSet
-import android.view.*
-import android.widget.ImageView
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -20,18 +18,11 @@ import coil.api.load
 import com.example.materialdesign.AppTheme
 import com.example.materialdesign.MainActivity
 import com.example.materialdesign.R
-import com.example.materialdesign.viewmodel.AppState
 import com.example.materialdesign.viewmodel.EveryDayImageViewModel
+import com.example.materialdesign.viewmodel.ImageData
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.daily_image_fragment.*
-import kotlinx.android.synthetic.main.daily_image_fragment.bottom_app_bar
-import kotlinx.android.synthetic.main.daily_image_fragment.fab
-import kotlinx.android.synthetic.main.daily_image_fragment.image_view_nasa_image
-import kotlinx.android.synthetic.main.daily_image_fragment.input_edit_text
-import kotlinx.android.synthetic.main.daily_image_fragment.input_layout
-import kotlinx.android.synthetic.main.fragment_main_start.*
-import kotlinx.android.synthetic.main.image_fragment_lesson3.*
 
 const val SETTINGS = "SETTINGS"
 
@@ -42,8 +33,6 @@ class ImageFragment : Fragment() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     private lateinit var mSettting: SharedPreferences
-    private var isExpanded = false
-
     private val everyDayVM by lazy {
         ViewModelProvider(this).get(EveryDayImageViewModel::class.java)
     }
@@ -57,7 +46,7 @@ class ImageFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         everyDayVM.getData()
-            .observe(viewLifecycleOwner, Observer<AppState> { renderData(it) })
+            .observe(viewLifecycleOwner, Observer<ImageData> { renderData(it) })
     }
 
     override fun onCreateView(
@@ -65,82 +54,31 @@ class ImageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        return inflater.inflate(R.layout.fragment_main_start, container, false)
+        return inflater.inflate(R.layout.daily_image_fragment, container, false)
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        image_view_nasa_image.setOnClickListener {
-
-            isExpanded = !isExpanded
-            TransitionManager.beginDelayedTransition(
-                container_lesson3, TransitionSet()
-                    .addTransition(ChangeBounds())
-                    .addTransition(ChangeImageTransform())
-            )
-
-            val params: ViewGroup.LayoutParams = image_view_nasa_image.layoutParams
-            params.height =
-                if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
-            image_view_nasa_image.layoutParams = params
-            image_view_nasa_image.scaleType =
-                if (isExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
-        }
         input_layout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${input_edit_text.text.toString()}")
             })
         }
-
-        val currentTheme = appTheme.getTheme(requireContext().applicationContext)
-        /*
-        switch_theme.isChecked = (currentTheme == 1)
-
-        switch_theme.setOnCheckedChangeListener { buttonView, isChecked ->
-
-            appTheme.setTheme(requireContext().applicationContext,isChecked)
-            applyAppTheme()
-
-        }
-
-         */
         setBottomAppBar(view)
     }
 
-    /*
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_bar, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.app_bar_fav -> toast("Избранное")
-            R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()
-                ?.add(R.id.bottom_sheet_container, ChipsFragment())?.addToBackStack(null)?.commit()
-            android.R.id.home -> {
-                activity?.let {
-                    BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
-                }
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-     */
-
-    private fun renderData(appState: AppState?) {
+    private fun renderData(appState: ImageData) {
 
         when (appState) {
 
-            is AppState.Error -> {
+            is ImageData.Error -> {
             }
-            is AppState.Loading -> {
+            is ImageData.Loading -> {
 
             }
-            is AppState.Success -> {
+            is ImageData.Success -> {
                 val serverResponseData = appState.serverResponseData
                 val url = serverResponseData.url
                 if (url.isNullOrEmpty()) {
@@ -186,12 +124,5 @@ class ImageFragment : Fragment() {
                 bottom_app_bar.replaceMenu(R.menu.menu_bottom_bar)
             }
         }
-    }
-
-    private fun applyAppTheme() {
-        requireActivity().recreate()
-        requireActivity().supportFragmentManager.beginTransaction()
-            .remove(this@ImageFragment)
-            .commitAllowingStateLoss()
     }
 }
