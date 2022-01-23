@@ -6,23 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.materialdesign.AppTheme
+import com.example.materialdesign.DarkTheme
 import com.example.materialdesign.R
 import kotlinx.android.synthetic.main.fragment_setting.*
 
-class SettingFragment:Fragment() {
+class SettingFragment : Fragment() {
 
     private val appTheme by lazy { AppTheme() }
-
-    companion object {
-        fun newInstance() = SettingFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_setting,container,false)
+        return inflater.inflate(R.layout.fragment_setting, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,11 +28,11 @@ class SettingFragment:Fragment() {
 
         val currentTheme = appTheme.getTheme(requireContext().applicationContext)
 
-        switch_theme.isChecked = (currentTheme == 1)
+        switch_theme.isChecked = (currentTheme == DarkTheme)
 
         switch_theme.setOnCheckedChangeListener { buttonView, isChecked ->
 
-            appTheme.setTheme(requireContext().applicationContext,isChecked)
+            appTheme.setTheme(requireContext().applicationContext, isChecked)
             applyAppTheme()
 
         }
@@ -43,8 +40,9 @@ class SettingFragment:Fragment() {
 
     private fun applyAppTheme() {
         requireActivity().recreate()
-        requireActivity().supportFragmentManager.beginTransaction()
-            .remove(this@SettingFragment)
-            .commitAllowingStateLoss()
+    }
+
+    companion object {
+        fun newInstance() = SettingFragment()
     }
 }

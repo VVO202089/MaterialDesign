@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 private const val NAME_SHARED_PREFERENCE = "APP_THEME"
 private const val appThemeKey = "APP_THEME_KEY"
 private const val DefaultTheme = 0
-private const val DarkTheme = 1
+public const val DarkTheme = 1
 private const val SunTheme = 2
 
 class AppTheme {
@@ -44,5 +44,4 @@ class AppTheme {
             .putInt(appThemeKey, themeNumber)
             .apply()
     }
-
 }
