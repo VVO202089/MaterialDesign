@@ -27,14 +27,12 @@ import com.example.materialdesign.viewmodel.EveryDayImageViewModel
 import com.example.materialdesign.viewmodel.ImageData
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.android.synthetic.main.daily_image_fragment.*
 import kotlinx.android.synthetic.main.daily_image_fragment.bottom_app_bar
 import kotlinx.android.synthetic.main.daily_image_fragment.fab
 import kotlinx.android.synthetic.main.daily_image_fragment.image_view_nasa_image
 import kotlinx.android.synthetic.main.daily_image_fragment.input_edit_text
 import kotlinx.android.synthetic.main.daily_image_fragment.input_layout
 import kotlinx.android.synthetic.main.fragment_main_start.*
-import kotlinx.android.synthetic.main.image_fragment_lesson3.*
 
 const val SETTINGS = "SETTINGS"
 

@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.example.materialdesign.recyclerview.RecyclerViewFragmentlesson6
 import com.example.materialdesign.view.ImageFragment
-import com.example.materialdesign.view.ImageFragmentLesson3
 import com.example.materialdesign.view.SettingFragment
 
 class MainActivity : AppCompatActivity() {
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
 
             // lesson2,lesson4,,lesson5
-            openImageFragment()
+            //openImageFragment()
 
             //lesson3
             /*
@@ -46,6 +46,13 @@ class MainActivity : AppCompatActivity() {
             add<FragmentLesson4>(R.id.imageFragment)
         }
              */
+
+            // lesson 6
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                    .addToBackStack(null)
+                add<RecyclerViewFragmentlesson6>(R.id.imageFragment)
+            }
 
         }
     }
