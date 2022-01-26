@@ -8,9 +8,15 @@ import com.example.materialdesign.recyclerview.model.SampleListItem
 import com.example.materialdesign.recyclerview.model.StarModel
 import java.util.*
 
+// планеты
 private const val earthPictureUrl = "https://findicons.com/files/icons/144/web/256/earth.png"
 private const val venusPictureUrl = "https://ichef.bbci.co.uk/news/800/cpsprodpb/114B6/production/_118783807_d46ff476-316c-4dc6-ac82-42ef03ae0bf2.jpg.webp"
 private const val marsPictureUrl = "https://findicons.com/files/icons/475/solar_system/256/mars.png"
+
+//звезды
+private const val sunStar = "https://st.depositphotos.com/1007168/1249/i/600/depositphotos_12492703-stock-photo-summer-hot-sun.jpg"
+private const val siriusStar = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Sirius_A_and_B_Hubble_photo.jpg/300px-Sirius_A_and_B_Hubble_photo.jpg"
+private const val alfaCentauri = "https://i0.wp.com/prokocmoc.ru/wp-content/uploads/2019/09/Alfa-TSentavra.jpg?resize=768%2C433&ssl=1"
 
 class RecyclerViewLesson6ViewModel : ViewModel() {
 
@@ -52,18 +58,21 @@ class RecyclerViewLesson6ViewModel : ViewModel() {
         val star1 = StarModel(
             id = UUID.randomUUID().toString(),
             "Солнце",
+            sunStar,
             "Млечный путь",
             "Наш спаситель"
         )
         val star2 = StarModel(
             id = UUID.randomUUID().toString(),
             "Сириус",
+            siriusStar,
             "Большой Пес",
             "ярче солнца"
         )
         val star3 = StarModel(
             id = UUID.randomUUID().toString(),
-            "Большая медведица",
+            "Альфа Центавра",
+            alfaCentauri,
             "хз",
             "очень далеко"
         )

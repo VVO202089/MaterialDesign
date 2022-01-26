@@ -5,6 +5,14 @@
     android:layout_height="100dp"
     android:foreground="?selectableItemBackground">
 
+    <ImageView
+        android:id="@+id/image_view_star_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/text_view_star_title"
         android:layout_width="0dp"
@@ -12,7 +20,7 @@
         android:layout_marginTop="20dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf = "@id/image_view_star_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -22,7 +30,7 @@
         android:layout_marginTop="20dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf = "@id/image_view_star_image"
         app:layout_constraintTop_toBottomOf="@id/text_view_star_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

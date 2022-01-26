@@ -23,4 +23,19 @@
         app:layout_constraintStart_toEndOf="@id/image_view_planet_image"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toEndOf="@id/text_view_planet_name"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/removeItemImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/image_view_planet_image"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_archive" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
