@@ -6,16 +6,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.materialdesign.R
-import com.example.materialdesign.recyclerview.model.PlanetModel
+import com.example.materialdesign.recyclerview.model.Notes
 import com.example.materialdesign.recyclerview.model.SampleListItem
-import com.example.materialdesign.recyclerview.model.StarModel
+import com.example.materialdesign.recyclerview.model.Affairs
 
 private const val viewTypePlanet = 0
 private const val viewTypeStar = 1
 
 class Adapter_Lesson6(
-    private var onPlanetClickListener: ((item: PlanetModel) -> Unit),
-    private var onStarClickListener: ((item: StarModel) -> Unit)
+    private var onPlanetClickListener: ((item: Notes) -> Unit),
+    private var onStarClickListener: ((item: Affairs) -> Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var items = emptyList<SampleListItem>() // пустой список
@@ -26,13 +26,13 @@ class Adapter_Lesson6(
         return when (viewType) {
             viewTypePlanet -> {
                 PlanetViewHolder(
-                    view = inflater.inflate(R.layout.item_planet_view, parent, false) as View,
+                    view = inflater.inflate(R.layout.item_notes_view, parent, false) as View,
                     onPlanetClickListener = onPlanetClickListener
                 )
             }
             viewTypeStar -> {
                 StarViewHolder(
-                    view = inflater.inflate(R.layout.item_star_view, parent, false) as View,
+                    view = inflater.inflate(R.layout.item_affairs_view, parent, false) as View,
                     onStarClickListener = onStarClickListener
                 )
 
@@ -44,11 +44,11 @@ class Adapter_Lesson6(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == viewTypePlanet) {
             holder as PlanetViewHolder
-            val planetModel = items[position] as PlanetModel
+            val planetModel = items[position] as Notes
             holder.bind(planetModel)
         } else {
             holder as StarViewHolder
-            val starModel = items[position] as StarModel
+            val starModel = items[position] as Affairs
             holder.bind(starModel)
         }
     }
@@ -61,8 +61,8 @@ class Adapter_Lesson6(
     override fun getItemViewType(position: Int): Int {
         val item = items[position]
         return when (item) {
-            is PlanetModel -> viewTypePlanet
-            is StarModel -> viewTypeStar
+            is Notes -> viewTypePlanet
+            is Affairs -> viewTypeStar
             else -> throw IllegalStateException("Неизвестный тип View")
         }
     }
@@ -70,20 +70,21 @@ class Adapter_Lesson6(
     // холдеры
     class PlanetViewHolder(
         view: View,
-        private val onPlanetClickListener: ((item: PlanetModel) -> Unit)
-    ) : RecyclerView.ViewHolder(view), View.OnCreateContextMenuListener {
+        private val onPlanetClickListener: ((item: Notes) -> Unit)
+    ) : RecyclerView.ViewHolder(view) {
 
-        private var planetNameTW: TextView = view.findViewById(R.id.text_view_planet_name)
-        private var planetImageView: ImageView = view.findViewById(R.id.image_view_planet_image)
+        private var planetNameTW: TextView = view.findViewById(R.id.text_view_notes_name)
+        //private var planetImageView: ImageView = view.findViewById(R.id.image_view_planet_image)
 
-        fun bind(planetModel: PlanetModel) {
-            itemView.setOnCreateContextMenuListener(this)
-            planetNameTW.text = planetModel.name
-            Glide.with(planetImageView.context).load(planetModel.url).into(planetImageView)
-            itemView.setOnClickListener { onPlanetClickListener(planetModel) }
+        fun bind(notes: Notes) {
+            //itemView.setOnCreateContextMenuListener(this)
+            planetNameTW.text = notes.name
+           // Glide.with(planetImageView.context).load(notes.url).into(planetImageView)
+            itemView.setOnClickListener { onPlanetClickListener(notes) }
 
         }
 
+        /*
         override fun onCreateContextMenu(
             menu: ContextMenu?,
             v: View?,
@@ -93,23 +94,25 @@ class Adapter_Lesson6(
             menu?.add(Menu.NONE, R.id.menu_openDesc, Menu.NONE, "Открыть описание")
         }
 
+         */
+
     }
 
     class StarViewHolder(
         view: View,
-        private val onStarClickListener: ((item: StarModel) -> Unit)
+        private val onStarClickListener: ((item: Affairs) -> Unit)
     ) : RecyclerView.ViewHolder(view) {
 
         // пока текст и описание
-        private val starImageView: ImageView = view.findViewById(R.id.image_view_star_image)
-        private var starNameTW: TextView = view.findViewById(R.id.text_view_star_title)
-        private var starDescTW: TextView = view.findViewById(R.id.text_view_star_description)
+       // private val starImageView: ImageView = view.findViewById(R.id.image_view_star_image)
+        private var starNameTW: TextView = view.findViewById(R.id.text_view_affairs_name)
+        //private var starDescTW: TextView = view.findViewById(R.id.text_view_star_description)
 
-        fun bind(starModel: StarModel) {
-            Glide.with(starImageView.context).load(starModel.url).into(starImageView)
-            starNameTW.text = starModel.name
-            starDescTW.text = starModel.description
-            itemView.setOnClickListener { onStarClickListener(starModel) }
+        fun bind(affairs: Affairs) {
+            //Glide.with(starImageView.context).load(affairs.url).into(starImageView)
+            starNameTW.text = affairs.name
+            //starDescTW.text = affairs.description
+            itemView.setOnClickListener { onStarClickListener(affairs) }
         }
     }
 

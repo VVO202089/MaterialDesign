@@ -3,7 +3,6 @@ package com.example.materialdesign.recyclerview
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
-import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -55,8 +54,12 @@ class RecyclerViewFragmentlesson6 : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when (item){
-
+        when (item.itemId){
+            R.id.menu_create_notes_view -> {
+                Toast.makeText(context,"Создать заметку",Toast.LENGTH_LONG)}
+            R.id.menu_create_affairs_view ->{
+                Toast.makeText(context,"Создать дело",Toast.LENGTH_LONG)
+            }
         }
 
         return super.onOptionsItemSelected(item)

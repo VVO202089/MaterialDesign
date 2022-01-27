@@ -3,9 +3,9 @@ package com.example.materialdesign.recyclerview
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.materialdesign.recyclerview.model.PlanetModel
+import com.example.materialdesign.recyclerview.model.Notes
 import com.example.materialdesign.recyclerview.model.SampleListItem
-import com.example.materialdesign.recyclerview.model.StarModel
+import com.example.materialdesign.recyclerview.model.Affairs
 import java.util.*
 
 // планеты
@@ -35,46 +35,40 @@ class RecyclerViewLesson6ViewModel : ViewModel() {
 
         // можно было бы затянуть из БД, но у нас проверка знаний по recyclerView
         // опишем планеты
-        val planet1 = PlanetModel(
+        val planet1 = Notes(
             id = UUID.randomUUID().toString(),
             "Земля",
-            earthPictureUrl,
             "Наша планета"
         )
-        val planet2 = PlanetModel(
+        val planet2 = Notes(
             id = UUID.randomUUID().toString(),
             "Венера",
-            venusPictureUrl,
             "Злая планета"
         )
-        val planet3 = PlanetModel(
+        val planet3 = Notes(
             id = UUID.randomUUID().toString(),
             "Марс",
-            marsPictureUrl,
             "Наш будущий дом"
         )
 
         // опишем звезды
-        val star1 = StarModel(
+        val star1 = Affairs(
             id = UUID.randomUUID().toString(),
             "Солнце",
             sunStar,
-            "Млечный путь",
-            "Наш спаситель"
+            1
         )
-        val star2 = StarModel(
+        val star2 = Affairs(
             id = UUID.randomUUID().toString(),
             "Сириус",
             siriusStar,
-            "Большой Пес",
-            "ярче солнца"
+            2
         )
-        val star3 = StarModel(
+        val star3 = Affairs(
             id = UUID.randomUUID().toString(),
             "Альфа Центавра",
             alfaCentauri,
-            "хз",
-            "очень далеко"
+            3
         )
 
         // соберем все в список
@@ -92,12 +86,12 @@ class RecyclerViewLesson6ViewModel : ViewModel() {
 
     // слушатели
 
-    fun onClickPlanet(planetModel: PlanetModel) {
-        messagesLiveData.value = planetModel.name
+    fun onClickPlanet(notes: Notes) {
+        messagesLiveData.value = notes.name
     }
 
-    fun onClickStar(starModel: StarModel) {
-        messagesLiveData.value = starModel.description
+    fun onClickStar(affairs: Affairs) {
+        messagesLiveData.value = affairs.description
     }
 
     fun onItemMoved(from: Int, to: Int) {
