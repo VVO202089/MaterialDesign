@@ -8,7 +8,6 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.materialdesign.view.ImageFragment
-import com.example.materialdesign.view.ImageFragmentLesson3
 import com.example.materialdesign.view.SettingFragment
 
 class MainActivity : AppCompatActivity() {
@@ -26,16 +25,16 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
 
-            // lesson2
-            //openImageFragment()
+            // lesson2,lesson4
+            openImageFragment()
 
+            // в комментариях оставил вызовы для старых уроков
             //lesson3
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                    .addToBackStack(null)
-                add<ImageFragmentLesson3>(R.id.imageFragment)
-            }
-
+            /*
+            add<ImageFragmentLesson3>(R.id.imageFragment)
+            // lesson4 эксперименты
+            add<FragmentLesson4>(R.id.imageFragment)
+             */
         }
     }
 
