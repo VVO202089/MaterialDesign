@@ -59,7 +59,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wiki_button"
                 app:layout_constraintWidth_percent="0.7"
                 app:srcCompat="@drawable/ic_no_photo_vector" />
         </androidx.constraintlayout.motion.widget.MotionLayout>

@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/sw1"
+        android:id="@+id/switch_button_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Видимость кнопок 1 и 2"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="bt1,bt2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sw1" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_button_view" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tw3"
