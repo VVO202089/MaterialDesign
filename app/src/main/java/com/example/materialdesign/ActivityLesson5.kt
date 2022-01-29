@@ -32,10 +32,16 @@ class ActivityLesson5 : AppCompatActivity() {
             toRightAnimation = !toRightAnimation
             val params = button.layoutParams as FrameLayout.LayoutParams
             params.gravity =
-                if (toRightAnimation) Gravity.END or Gravity.BOTTOM else Gravity.START or Gravity.TOP
+                if (toRightAnimation) {
+                    Gravity.END or Gravity.BOTTOM
+                } else {
+                    Gravity.START or Gravity.TOP
+                }
             button.layoutParams = params
         }
     }
+
+    // остальные методы делал для теста, не стал делать оптимизацию и рефакторинг
     // увеличение картинки
     /*
         image_view.setOnClickListener {

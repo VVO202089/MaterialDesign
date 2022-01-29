@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
 
-            // lesson2,lesson4
+            // lesson2,lesson4,lesson5
             openImageFragment()
 
             // в комментариях оставил вызовы для старых уроков
