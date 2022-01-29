@@ -26,27 +26,16 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
 
-            // lesson2,lesson4,,lesson5
+            // lesson2,lesson4
             openImageFragment()
 
+            // в комментариях оставил вызовы для старых уроков
             //lesson3
             /*
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                    .addToBackStack(null)
-                add<ImageFragmentLesson3>(R.id.imageFragment)
-            }
-
-             */
+            add<ImageFragmentLesson3>(R.id.imageFragment)
             // lesson4 эксперименты
-            /*
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-                .addToBackStack(null)
             add<FragmentLesson4>(R.id.imageFragment)
-        }
              */
-
         }
     }
 
