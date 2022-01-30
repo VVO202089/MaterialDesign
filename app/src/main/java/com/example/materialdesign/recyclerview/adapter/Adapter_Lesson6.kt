@@ -1,14 +1,12 @@
 package com.example.materialdesign.recyclerview.adapter
 
 import android.view.*
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.materialdesign.R
+import com.example.materialdesign.recyclerview.model.Affairs
 import com.example.materialdesign.recyclerview.model.Notes
 import com.example.materialdesign.recyclerview.model.SampleListItem
-import com.example.materialdesign.recyclerview.model.Affairs
 
 private const val viewTypePlanet = 0
 private const val viewTypeStar = 1
@@ -25,13 +23,13 @@ class Adapter_Lesson6(
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             viewTypePlanet -> {
-                PlanetViewHolder(
+                NotesViewHolder(
                     view = inflater.inflate(R.layout.item_notes_view, parent, false) as View,
                     onPlanetClickListener = onPlanetClickListener
                 )
             }
             viewTypeStar -> {
-                StarViewHolder(
+                AffairViewHolder(
                     view = inflater.inflate(R.layout.item_affairs_view, parent, false) as View,
                     onStarClickListener = onStarClickListener
                 )
@@ -43,11 +41,11 @@ class Adapter_Lesson6(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == viewTypePlanet) {
-            holder as PlanetViewHolder
+            holder as NotesViewHolder
             val planetModel = items[position] as Notes
             holder.bind(planetModel)
         } else {
-            holder as StarViewHolder
+            holder as AffairViewHolder
             val starModel = items[position] as Affairs
             holder.bind(starModel)
         }
@@ -68,44 +66,41 @@ class Adapter_Lesson6(
     }
 
     // холдеры
-    class PlanetViewHolder(
+    class NotesViewHolder(
         view: View,
         private val onPlanetClickListener: ((item: Notes) -> Unit)
-    ) : RecyclerView.ViewHolder(view) {
+    ) : RecyclerView.ViewHolder(view), View.OnCreateContextMenuListener {
 
-        private var planetNameTW: TextView = view.findViewById(R.id.text_view_notes_name)
+        private var planetNameTW: TextView = view.findViewById(R.id.notes_textView)
         //private var planetImageView: ImageView = view.findViewById(R.id.image_view_planet_image)
 
         fun bind(notes: Notes) {
             //itemView.setOnCreateContextMenuListener(this)
             planetNameTW.text = notes.name
-           // Glide.with(planetImageView.context).load(notes.url).into(planetImageView)
+            // Glide.with(planetImageView.context).load(notes.url).into(planetImageView)
             itemView.setOnClickListener { onPlanetClickListener(notes) }
 
         }
 
-        /*
         override fun onCreateContextMenu(
             menu: ContextMenu?,
             v: View?,
             menuInfo: ContextMenu.ContextMenuInfo?
         ) {
-            menu?.add(Menu.NONE, R.id.menu_del, Menu.NONE, "Удалить")
-            menu?.add(Menu.NONE, R.id.menu_openDesc, Menu.NONE, "Открыть описание")
+            menu?.add(Menu.NONE, R.id.menu_del_view, Menu.NONE, "Удалить")
+            menu?.add(Menu.NONE, R.id.menu_open_view, Menu.NONE, "Открыть")
         }
-
-         */
 
     }
 
-    class StarViewHolder(
+    class AffairViewHolder(
         view: View,
         private val onStarClickListener: ((item: Affairs) -> Unit)
-    ) : RecyclerView.ViewHolder(view) {
+    ) : RecyclerView.ViewHolder(view), View.OnCreateContextMenuListener {
 
         // пока текст и описание
-       // private val starImageView: ImageView = view.findViewById(R.id.image_view_star_image)
-        private var starNameTW: TextView = view.findViewById(R.id.text_view_affairs_name)
+        // private val starImageView: ImageView = view.findViewById(R.id.image_view_star_image)
+        private var starNameTW: TextView = view.findViewById(R.id.affairs_textView)
         //private var starDescTW: TextView = view.findViewById(R.id.text_view_star_description)
 
         fun bind(affairs: Affairs) {
@@ -114,6 +109,19 @@ class Adapter_Lesson6(
             //starDescTW.text = affairs.description
             itemView.setOnClickListener { onStarClickListener(affairs) }
         }
+
+        override fun onCreateContextMenu(
+            menu: ContextMenu?,
+            v: View?,
+            menuInfo: ContextMenu.ContextMenuInfo?
+        ) {
+            menu?.add(Menu.NONE, R.id.menu_del_view, Menu.NONE, "Удалить")
+            menu?.add(Menu.NONE, R.id.menu_open_view, Menu.NONE, "Открыть")
+        }
+
+        //companion object{
+        //    vie
+        //}
     }
 
 }

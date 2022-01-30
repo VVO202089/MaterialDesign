@@ -3,9 +3,9 @@ package com.example.materialdesign.recyclerview
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.materialdesign.recyclerview.model.Affairs
 import com.example.materialdesign.recyclerview.model.Notes
 import com.example.materialdesign.recyclerview.model.SampleListItem
-import com.example.materialdesign.recyclerview.model.Affairs
 import java.util.*
 
 // планеты
@@ -34,51 +34,51 @@ class RecyclerViewLesson6ViewModel : ViewModel() {
     fun loadData() {
 
         // можно было бы затянуть из БД, но у нас проверка знаний по recyclerView
-        // опишем планеты
-        val planet1 = Notes(
+        // опишем заметки
+        val note1 = Notes(
             id = UUID.randomUUID().toString(),
-            "Земля",
-            "Наша планета"
+            "Заметка 1",
+            "Описание заметки 1"
         )
-        val planet2 = Notes(
+        val note2 = Notes(
             id = UUID.randomUUID().toString(),
-            "Венера",
-            "Злая планета"
+            "Заметка 2",
+            "Описание заметки 2"
         )
-        val planet3 = Notes(
+        val note3 = Notes(
             id = UUID.randomUUID().toString(),
-            "Марс",
-            "Наш будущий дом"
+            "Заметка 3",
+            "Описание заметки 3"
         )
 
-        // опишем звезды
-        val star1 = Affairs(
+        // опишем дела
+        val affair1 = Affairs(
             id = UUID.randomUUID().toString(),
-            "Солнце",
+            "Дело 1",
             sunStar,
             1
         )
-        val star2 = Affairs(
+        val affair2 = Affairs(
             id = UUID.randomUUID().toString(),
-            "Сириус",
+            "Дело 2",
             siriusStar,
             2
         )
-        val star3 = Affairs(
+        val affair3 = Affairs(
             id = UUID.randomUUID().toString(),
-            "Альфа Центавра",
+            "Дело 3",
             alfaCentauri,
             3
         )
 
         // соберем все в список
         val items = listOf(
-            planet1,
-            planet2,
-            planet3,
-            star1,
-            star2,
-            star3
+            note1,
+            note2,
+            note3,
+            affair1,
+            affair2,
+            affair3
         )
 
         itemsLiveData.value = items
