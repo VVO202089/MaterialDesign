@@ -1,4 +1,4 @@
-package com.example.materialdesign.recyclerview
+package com.example.materialdesign.recyclerview.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.materialdesign.R
+import com.example.materialdesign.recyclerview.RecyclerViewLesson6ViewModel
 import com.example.materialdesign.recyclerview.adapter.Adapter_Lesson6
 
 class RecyclerViewFragmentlesson6 : Fragment() {
@@ -18,8 +19,8 @@ class RecyclerViewFragmentlesson6 : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val adapter by lazy {
         Adapter_Lesson6(
-            onPlanetClickListener = { planet -> viewModel.onClickPlanet(planet) },
-            onStarClickListener = { star -> viewModel.onClickStar(star) }
+            onNoteClickListener = { notes -> viewModel.onClickNote(notes) },
+            onAffairClickListener = { affair -> viewModel.onClickAffair(affair) }
         )
     }
 
@@ -34,6 +35,7 @@ class RecyclerViewFragmentlesson6 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.setAdapter(adapter)
         recyclerView = view.findViewById(R.id.recycler_view_sample)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
@@ -56,14 +58,16 @@ class RecyclerViewFragmentlesson6 : Fragment() {
 
         when (item.itemId){
             R.id.menu_create_notes_view -> {
-                Toast.makeText(context,"Создать заметку",Toast.LENGTH_LONG)}
+                Toast.makeText(context, "Создать заметку", Toast.LENGTH_LONG)
+            }
             R.id.menu_create_affairs_view ->{
-                Toast.makeText(context,"Создать дело",Toast.LENGTH_LONG)
+                Toast.makeText(context, "Создать дело", Toast.LENGTH_LONG)
             }
         }
 
         return super.onOptionsItemSelected(item)
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     private fun observeViewModel() {
@@ -87,4 +91,5 @@ class RecyclerViewFragmentlesson6 : Fragment() {
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
     }
+
 }
