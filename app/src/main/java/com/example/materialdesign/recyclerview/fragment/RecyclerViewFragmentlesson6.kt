@@ -1,5 +1,8 @@
 package com.example.materialdesign.recyclerview.fragment
 
+import AGREEMENT_KEY
+import ActivityCallableInterface
+import DialogFragmentLesson6
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
@@ -11,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.materialdesign.R
 import com.example.materialdesign.recyclerview.RecyclerViewLesson6ViewModel
 import com.example.materialdesign.recyclerview.adapter.Adapter_Lesson6
+import androidx.lifecycle.Observer
 
 class RecyclerViewFragmentlesson6 : Fragment() {
 
@@ -35,13 +39,18 @@ class RecyclerViewFragmentlesson6 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initView(view)
+        registeredForListeners()
+
+        observeViewModel()
+        viewModel.loadData()
+    }
+
+    private fun initView(view: View) {
         viewModel.setAdapter(adapter)
         recyclerView = view.findViewById(R.id.recycler_view_sample)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-
-        observeViewModel()
-        viewModel.loadData()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,6 +98,29 @@ class RecyclerViewFragmentlesson6 : Fragment() {
 
         viewModel.getMessages().observe(viewLifecycleOwner){message ->
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun registeredForListeners() {
+
+        // открытие заметки
+        viewModel.openNotes.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let {
+                (requireActivity() as ActivityCallableInterface).callEditionFragment(it)
+            }
+        })
+
+        createDialog()
+    }
+
+    private fun createDialog() {
+        viewModel.noteDelete.observe(viewLifecycleOwner) { dialog ->
+            dialog.show(parentFragmentManager, "ОК")
+            parentFragmentManager.setFragmentResultListener(DialogFragmentLesson6::class.simpleName!!,
+                requireActivity(),
+                { requestKey, result ->
+                    viewModel.deleteNoteInRepos(result, AGREEMENT_KEY)
+                })
         }
     }
 

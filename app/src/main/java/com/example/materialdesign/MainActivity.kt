@@ -1,5 +1,6 @@
 package com.example.materialdesign
 
+import ActivityCallableInterface
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -7,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.example.materialdesign.recyclerview.fragment.NotesFragment
 import com.example.materialdesign.recyclerview.fragment.RecyclerViewFragmentlesson6
+import com.example.materialdesign.recyclerview.model.Notes
 import com.example.materialdesign.view.ImageFragment
 import com.example.materialdesign.view.SettingFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),ActivityCallableInterface {
 
     private val appTheme by lazy { AppTheme() }
 
@@ -93,4 +96,17 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun callEditionFragment(notes: Notes) {
+
+        val bundle = Bundle()
+        bundle.putParcelable(Notes::class.simpleName,notes)
+        supportFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .addToBackStack(null)
+            .add(R.id.imageFragment,NotesFragment.newInstance(bundle))
+            .commit()
+
+    }
+
 }

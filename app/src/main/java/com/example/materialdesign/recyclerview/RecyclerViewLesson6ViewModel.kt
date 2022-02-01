@@ -1,6 +1,9 @@
 package com.example.materialdesign.recyclerview
 
+import DialogFragmentLesson6
 import Event
+import android.os.Bundle
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +11,6 @@ import com.example.materialdesign.recyclerview.adapter.Adapter_Lesson6
 import com.example.materialdesign.recyclerview.model.Affairs
 import com.example.materialdesign.recyclerview.model.Notes
 import com.example.materialdesign.recyclerview.model.SampleListItem
-import ru.barinov.notes.core.Event
 import java.util.*
 
 // планеты
@@ -26,8 +28,13 @@ class RecyclerViewLesson6ViewModel : ViewModel(),OnRecyclerViewItemClickListener
     private val itemsLiveData = MutableLiveData<List<SampleListItem>>(emptyList())
     private val messagesLiveData = MutableLiveData<String>()
 
-    private val _openNotes = MutableLiveData<Event<String>>()
-    private val openNotes: LiveData<Event<String>> = _openNotes
+    private lateinit var tempNote: Notes
+
+    private val _openNotes = MutableLiveData<Event<Notes>>()
+    val openNotes: LiveData<Event<Notes>> = _openNotes
+
+    private val _noteDelete = MutableLiveData<DialogFragment>()
+    val noteDelete: LiveData<DialogFragment> = _noteDelete
 
     fun getItems(): LiveData<List<SampleListItem>> {
         return itemsLiveData
@@ -94,8 +101,8 @@ class RecyclerViewLesson6ViewModel : ViewModel(),OnRecyclerViewItemClickListener
 
         adapterLesson6.setListener(object : OnRecyclerViewItemClickListener{
 
-            override fun openElement(isNote: Boolean, note: Notes) {
-                this@RecyclerViewLesson6ViewModel.openElement(isNote,note)
+            override fun openElement(note: Notes) {
+                this@RecyclerViewLesson6ViewModel.openElement(note)
             }
 
             override fun delElement(note: Notes) {
@@ -114,6 +121,7 @@ class RecyclerViewLesson6ViewModel : ViewModel(),OnRecyclerViewItemClickListener
         messagesLiveData.value = affair.description
     }
 
+    /*
     fun onItemMoved(from: Int, to: Int) {
         val newMutableList = requireCurrentList().toMutableList()
         Collections.swap(newMutableList, from, to)
@@ -125,16 +133,30 @@ class RecyclerViewLesson6ViewModel : ViewModel(),OnRecyclerViewItemClickListener
         newMutableList.removeAt(position)
         itemsLiveData.value = newMutableList
     }
+     */
 
     private fun requireCurrentList(): List<SampleListItem> {
         return itemsLiveData.value ?: throw IllegalStateException("список пустой")
     }
 
-    override fun openElement(isNote: Boolean, note: Notes) {
-
+    override fun openElement(note: Notes) {
+        _openNotes.value = Event(note)
     }
 
     override fun delElement(note: Notes) {
-        TODO("Not yet implemented")
+        val confirmation = DialogFragmentLesson6()
+        tempNote = note
+        _noteDelete.postValue(confirmation)
+    }
+
+    fun deleteNoteInRepos(result: Bundle, key: String) {
+
+        val isConfirmed = result.getBoolean(key)
+
+        if (isConfirmed){
+            val oldList = requireCurrentList()
+            val newList = oldList - tempNote
+            itemsLiveData.value = newList
+        }
     }
 }

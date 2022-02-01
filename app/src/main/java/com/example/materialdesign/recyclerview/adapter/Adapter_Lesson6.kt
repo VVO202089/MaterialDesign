@@ -100,7 +100,7 @@ class Adapter_Lesson6(
             // Glide.with(planetImageView.context).load(notes.url).into(planetImageView)
             itemView.setOnClickListener { onPlanetClickListener(notes) }
             notesOpenImageView.setOnClickListener {
-                listener.openElement(true, notes)
+                listener.openElement(notes)
             }
             notesDelImageView.setOnClickListener {
                 listener.delElement(notes)
