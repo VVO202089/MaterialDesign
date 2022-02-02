@@ -1,8 +1,9 @@
 package com.example.materialdesign.recyclerview.model
 
-data class Affairs(
+import NoteTypes
+
+data class NoteDraft(
     val id: String,
     val name: String,
-    val description: String,
-    val priority: Int
-) : SampleListItem
+    val description: String
+)

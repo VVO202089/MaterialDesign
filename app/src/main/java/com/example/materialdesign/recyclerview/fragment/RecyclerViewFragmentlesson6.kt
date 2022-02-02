@@ -9,12 +9,12 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.materialdesign.R
 import com.example.materialdesign.recyclerview.RecyclerViewLesson6ViewModel
 import com.example.materialdesign.recyclerview.adapter.Adapter_Lesson6
-import androidx.lifecycle.Observer
 
 class RecyclerViewFragmentlesson6 : Fragment() {
 
@@ -43,7 +43,7 @@ class RecyclerViewFragmentlesson6 : Fragment() {
         registeredForListeners()
 
         observeViewModel()
-        viewModel.loadData()
+        //viewModel.loadData()
     }
 
     private fun initView(view: View) {

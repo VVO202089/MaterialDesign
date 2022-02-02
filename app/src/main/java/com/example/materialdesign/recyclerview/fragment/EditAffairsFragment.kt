@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.materialdesign.R
 
-class AffairsFragment:Fragment() {
+class EditAffairsFragment:Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

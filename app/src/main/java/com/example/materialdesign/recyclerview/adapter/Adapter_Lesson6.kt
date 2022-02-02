@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.materialdesign.R
 import com.example.materialdesign.recyclerview.OnRecyclerViewItemClickListener
-import com.example.materialdesign.recyclerview.model.Affairs
+import com.example.materialdesign.recyclerview.model.AffairEntity
 import com.example.materialdesign.recyclerview.model.Notes
 import com.example.materialdesign.recyclerview.model.SampleListItem
 
@@ -18,7 +18,7 @@ private const val viewTypeAffairs = 1
 
 class Adapter_Lesson6(
     private var onNoteClickListener: (item: Notes) -> Unit,
-    private var onAffairClickListener: (item: Affairs) -> Unit
+    private var onAffairClickListener: (item: AffairEntity) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var items = emptyList<SampleListItem>() // пустой список
@@ -53,7 +53,7 @@ class Adapter_Lesson6(
             holder.bind(noteModel)
         } else {
             holder as AffairViewHolder
-            val affairModel = items[position] as Affairs
+            val affairModel = items[position] as AffairEntity
             holder.bind(affairModel)
         }
     }
@@ -67,7 +67,7 @@ class Adapter_Lesson6(
         val item = items[position]
         return when (item) {
             is Notes -> viewTypeNotes
-            is Affairs -> viewTypeAffairs
+            is AffairEntity -> viewTypeAffairs
             else -> throw IllegalStateException("Неизвестный тип View")
         }
     }
@@ -112,7 +112,7 @@ class Adapter_Lesson6(
 
     class AffairViewHolder(
         view: View,
-        private val onStarClickListener: (item: Affairs) -> Unit,
+        private val onStarClickListener: (item: AffairEntity) -> Unit,
         private val listener: OnRecyclerViewItemClickListener
     ) : RecyclerView.ViewHolder(view) {
 
@@ -121,7 +121,7 @@ class Adapter_Lesson6(
         private var starNameTW: TextView = view.findViewById(R.id.affairs_textView)
         //private var starDescTW: TextView = view.findViewById(R.id.text_view_star_description)
 
-        fun bind(affairs: Affairs) {
+        fun bind(affairs: AffairEntity) {
             //Glide.with(starImageView.context).load(affairs.url).into(starImageView)
             starNameTW.text = affairs.name
             //starDescTW.text = affairs.description

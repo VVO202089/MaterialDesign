@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import com.example.materialdesign.recyclerview.fragment.NotesFragment
+import com.example.materialdesign.recyclerview.fragment.EditNotesFragment
 import com.example.materialdesign.recyclerview.fragment.RecyclerViewFragmentlesson6
 import com.example.materialdesign.recyclerview.model.Notes
 import com.example.materialdesign.view.ImageFragment
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity(),ActivityCallableInterface {
         supportFragmentManager.beginTransaction()
             .setReorderingAllowed(true)
             .addToBackStack(null)
-            .add(R.id.imageFragment,NotesFragment.newInstance(bundle))
+            .replace(R.id.imageFragment,EditNotesFragment.newInstance(bundle))
             .commit()
 
     }
