@@ -1,4 +1,4 @@
-package com.example.materialdesign.recyclerview.fragment
+package com.example.materialdesign.recyclerview.fragment.editAffair
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.materialdesign.R
 
-class EditAffairsFragment:Fragment() {
+class EditAffairsFragment: Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

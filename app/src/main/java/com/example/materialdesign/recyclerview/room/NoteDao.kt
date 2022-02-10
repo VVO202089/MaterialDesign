@@ -1,9 +1,10 @@
-package ru.barinov.notes.domain.room
+package com.example.materialdesign
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.materialdesign.recyclerview.model.NoteEntity
-import retrofit2.http.Query
-import ru.barinov.notes.domain.models.NoteEntity
+import com.example.materialdesign.recyclerview.model.SampleListItem
 
 @Dao
 interface NoteDao {
@@ -17,7 +18,16 @@ interface NoteDao {
     @Delete
     fun delete(note: NoteEntity)
 
-    @Query("DELETE FROM note_table")
+    @Query("SELECT * FROM note_table")
+    fun getAllItems(): LiveData<List<NoteEntity>>
+
+    @androidx.room.Query("DELETE FROM note_table")
     fun clearDataBase()
+
+    @androidx.room.Query("SELECT * FROM note_table WHERE id == :id")
+    fun getNoteById(id: String): NoteEntity
+
+    @androidx.room.Query("SELECT * FROM note_table WHERE id == :id")
+    fun findNoteById(id: String): Boolean
 
 }

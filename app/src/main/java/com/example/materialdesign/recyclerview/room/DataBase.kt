@@ -1,4 +1,4 @@
-package ru.barinov.notes.domain.room
+package com.example.materialdesign
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

@@ -1,5 +1,6 @@
 package com.example.materialdesign.recyclerview.adapter
 
+import com.example.materialdesign.recyclerview.model.SampleListItem
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,22 +8,29 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.materialdesign.R
-import com.example.materialdesign.recyclerview.OnRecyclerViewItemClickListener
 import com.example.materialdesign.recyclerview.model.AffairEntity
-import com.example.materialdesign.recyclerview.model.Notes
-import com.example.materialdesign.recyclerview.model.SampleListItem
+import com.example.materialdesign.recyclerview.model.NoteEntity
+import com.example.materialdesign.recyclerview.myInterface.OnRecyclerViewItemClickListener
 
 
 private const val viewTypeNotes = 0
 private const val viewTypeAffairs = 1
 
 class Adapter_Lesson6(
-    private var onNoteClickListener: (item: Notes) -> Unit,
+    private var onNoteClickListener: (item: NoteEntity) -> Unit,
     private var onAffairClickListener: (item: AffairEntity) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var items = emptyList<SampleListItem>() // пустой список
+    var items = emptyList<SampleListItem>()
+        /*
+        set(newData) {
+            val result = DiffUtil.calculateDiff(DiffCallback(items, newData), true)
+            field = newData
+            result.dispatchUpdatesTo(this)
+        }
+         */
     private lateinit var listener: OnRecyclerViewItemClickListener
+
     // имплементированные методы
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -49,7 +57,7 @@ class Adapter_Lesson6(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == viewTypeNotes) {
             holder as NotesViewHolder
-            val noteModel = items[position] as Notes
+            val noteModel = items[position] as NoteEntity
             holder.bind(noteModel)
         } else {
             holder as AffairViewHolder
@@ -66,7 +74,7 @@ class Adapter_Lesson6(
     override fun getItemViewType(position: Int): Int {
         val item = items[position]
         return when (item) {
-            is Notes -> viewTypeNotes
+            is NoteEntity -> viewTypeNotes
             is AffairEntity -> viewTypeAffairs
             else -> throw IllegalStateException("Неизвестный тип View")
         }
@@ -81,7 +89,7 @@ class Adapter_Lesson6(
     // и вообще, нужно ли это делать в адаптере или в другом месте? Тут вопрос..
     class NotesViewHolder(
         view: View,
-        private val onPlanetClickListener: (item: Notes) -> Unit,
+        private val onPlanetClickListener: (item: NoteEntity) -> Unit,
         private val listener: OnRecyclerViewItemClickListener
     ) : RecyclerView.ViewHolder(view) {
 
@@ -94,7 +102,7 @@ class Adapter_Lesson6(
         private var notesDelImageView: ImageView = view.findViewById(R.id.del_notes_view)
         //private var planetImageView: ImageView = view.findViewById(R.id.image_view_planet_image)
 
-        fun bind(notes: Notes) {
+        fun bind(notes: NoteEntity) {
             //itemView.setOnCreateContextMenuListener(this)
             notesNameTW.text = notes.name
             // Glide.with(planetImageView.context).load(notes.url).into(planetImageView)
@@ -131,15 +139,3 @@ class Adapter_Lesson6(
     }
 
 }
-
-
-/*
-override fun onCreateContextMenu(
-    menu: ContextMenu?,
-    v: View?,
-    menuInfo: ContextMenu.ContextMenuInfo?
-) {
-    menu?.add(Menu.NONE, R.id.menu_del_view, Menu.NONE, "Удалить")
-    menu?.add(Menu.NONE, R.id.menu_open_view, Menu.NONE, "Открыть")
-}
- */

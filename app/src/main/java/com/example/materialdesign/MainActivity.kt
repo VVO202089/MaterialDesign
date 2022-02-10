@@ -1,6 +1,5 @@
 package com.example.materialdesign
 
-import ActivityCallableInterface
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,13 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import com.example.materialdesign.recyclerview.fragment.EditNotesFragment
-import com.example.materialdesign.recyclerview.fragment.RecyclerViewFragmentlesson6
-import com.example.materialdesign.recyclerview.model.Notes
+import com.example.materialdesign.recyclerview.fragment.editNotes.EditNotesFragment
+import com.example.materialdesign.recyclerview.fragment.listNotesAndAffair.RecyclerViewFragment
+import com.example.materialdesign.recyclerview.myInterface.ActivityCallableInterface
 import com.example.materialdesign.view.ImageFragment
 import com.example.materialdesign.view.SettingFragment
 
-class MainActivity : AppCompatActivity(),ActivityCallableInterface {
+class MainActivity : AppCompatActivity(), ActivityCallableInterface {
 
     private val appTheme by lazy { AppTheme() }
 
@@ -54,7 +53,7 @@ class MainActivity : AppCompatActivity(),ActivityCallableInterface {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
                     .addToBackStack(null)
-                add<RecyclerViewFragmentlesson6>(R.id.imageFragment)
+                add<RecyclerViewFragment>(R.id.imageFragment)
             }
 
         }
@@ -97,14 +96,14 @@ class MainActivity : AppCompatActivity(),ActivityCallableInterface {
 
     }
 
-    override fun callEditionFragment(notes: Notes) {
+    override fun callEditionFragment(id: String) {
 
-        val bundle = Bundle()
-        bundle.putParcelable(Notes::class.simpleName,notes)
+        //val bundle = Bundle()
+       // bundle.putString(NoteEntity::class.simpleName,id)
         supportFragmentManager.beginTransaction()
             .setReorderingAllowed(true)
             .addToBackStack(null)
-            .replace(R.id.imageFragment,EditNotesFragment.newInstance(bundle))
+            .replace(R.id.imageFragment, EditNotesFragment.newInstance(id))
             .commit()
 
     }

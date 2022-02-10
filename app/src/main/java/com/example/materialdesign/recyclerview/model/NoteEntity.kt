@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "note_table")
 data class NoteEntity(
     @PrimaryKey
-    val id: String = "0",
+    val id: String = "",
     val name: String = "",
     val description: String = "",
 ) : SampleListItem

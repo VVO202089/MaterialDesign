@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "affair_table")
 data class AffairEntity(
     @PrimaryKey
-    val id: String,
-    val name: String,
-    val description: String,
-    val priority: Int
+    val id: String = "",
+    val name: String = "",
+    val description: String = "",
+    val priority: Int = 0
 ) : SampleListItem
