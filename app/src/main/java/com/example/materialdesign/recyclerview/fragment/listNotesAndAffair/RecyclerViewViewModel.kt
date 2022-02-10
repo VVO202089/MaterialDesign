@@ -32,7 +32,7 @@ class RecyclerViewViewModel(
     internal var itemsLiveData: LiveData<List<NoteEntity>> = db_notes.NotesDao().getAllItems()
     private val messagesLiveData = MutableLiveData<String>()
 
-    private lateinit var tempNote: NoteEntity
+    private lateinit var tempNote: Any
 
     private val _openNotes = MutableLiveData<Event<String>>()
     val openNotes: LiveData<Event<String>> = _openNotes
@@ -43,7 +43,7 @@ class RecyclerViewViewModel(
     private val _searchedNotes = MutableLiveData<String>("")
     private val searchedNotes: LiveData<String> = _searchedNotes
 
-    fun getItems(){
+    fun getItems() {
         //notesRepository = NotesRepository(db_notes.NotesDao())
         notesRepository.getAllItems()
 
@@ -57,12 +57,12 @@ class RecyclerViewViewModel(
 
         adapterLesson6.setListener(object : OnRecyclerViewItemClickListener {
 
-            override fun openElement(note: NoteEntity) {
-                this@RecyclerViewViewModel.openElement(note)
+            override fun openElement(element: Any) {
+                this@RecyclerViewViewModel.openElement(element)
             }
 
-            override fun delElement(note: NoteEntity) {
-                this@RecyclerViewViewModel.delElement(note)
+            override fun delElement(element: Any) {
+                this@RecyclerViewViewModel.delElement(element)
             }
 
         })
@@ -80,13 +80,19 @@ class RecyclerViewViewModel(
         return itemsLiveData.value ?: throw IllegalStateException("список пустой")
     }
 
-    override fun openElement(note: NoteEntity) {
-        _openNotes.value = Event(note.id)
+    override fun openElement(element: Any) {
+
+        _openNotes.value = when (element) {
+            is NoteEntity -> Event(element.id)
+            is AffairEntity -> Event(element.id)
+            else -> throw java.lang.IllegalArgumentException("Неизвестный тип данных")
+        }
+
     }
 
-    override fun delElement(note: NoteEntity) {
+    override fun delElement(element: Any) {
         val confirmation = DialogFragmentLesson6()
-        tempNote = note
+        tempNote = element
         _noteDelete.postValue(confirmation)
     }
 
@@ -95,7 +101,14 @@ class RecyclerViewViewModel(
         val isConfirmed = result.getBoolean(key)
 
         if (isConfirmed) {
-            notesRepository.removeNote(tempNote)
+
+            if (tempNote is NoteEntity){
+                notesRepository.removeNote(tempNote as NoteEntity)
+            }else if(tempNote is AffairEntity){
+                //notesRepository.removeNote(tempNote as )
+            }
+
+
         }
     }
 }

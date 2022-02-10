@@ -22,13 +22,7 @@ class Adapter_Lesson6(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var items = emptyList<SampleListItem>()
-        /*
-        set(newData) {
-            val result = DiffUtil.calculateDiff(DiffCallback(items, newData), true)
-            field = newData
-            result.dispatchUpdatesTo(this)
-        }
-         */
+
     private lateinit var listener: OnRecyclerViewItemClickListener
 
     // имплементированные методы
@@ -38,14 +32,14 @@ class Adapter_Lesson6(
             viewTypeNotes -> {
                 NotesViewHolder(
                     view = inflater.inflate(R.layout.item_notes_view, parent, false) as View,
-                    onPlanetClickListener = onNoteClickListener,
+                    onNoteClickListener = onNoteClickListener,
                     listener
                 )
             }
             viewTypeAffairs -> {
                 AffairViewHolder(
                     view = inflater.inflate(R.layout.item_affairs_view, parent, false) as View,
-                    onStarClickListener = onAffairClickListener,
+                    onAffairClickListener = onAffairClickListener,
                     listener
                 )
 
@@ -89,7 +83,7 @@ class Adapter_Lesson6(
     // и вообще, нужно ли это делать в адаптере или в другом месте? Тут вопрос..
     class NotesViewHolder(
         view: View,
-        private val onPlanetClickListener: (item: NoteEntity) -> Unit,
+        private val onNoteClickListener: (item: NoteEntity) -> Unit,
         private val listener: OnRecyclerViewItemClickListener
     ) : RecyclerView.ViewHolder(view) {
 
@@ -106,7 +100,7 @@ class Adapter_Lesson6(
             //itemView.setOnCreateContextMenuListener(this)
             notesNameTW.text = notes.name
             // Glide.with(planetImageView.context).load(notes.url).into(planetImageView)
-            itemView.setOnClickListener { onPlanetClickListener(notes) }
+            itemView.setOnClickListener { onNoteClickListener(notes) }
             notesOpenImageView.setOnClickListener {
                 listener.openElement(notes)
             }
@@ -120,20 +114,28 @@ class Adapter_Lesson6(
 
     class AffairViewHolder(
         view: View,
-        private val onStarClickListener: (item: AffairEntity) -> Unit,
+        private val onAffairClickListener: (item: AffairEntity) -> Unit,
         private val listener: OnRecyclerViewItemClickListener
     ) : RecyclerView.ViewHolder(view) {
 
         // пока текст и описание
         // private val starImageView: ImageView = view.findViewById(R.id.image_view_star_image)
-        private var starNameTW: TextView = view.findViewById(R.id.affairs_textView)
+        private var affairNameTW: TextView = view.findViewById(R.id.affairs_textView)
         //private var starDescTW: TextView = view.findViewById(R.id.text_view_star_description)
+        private var affairOpenImageView: ImageView = view.findViewById(R.id.open_affair_view)
+        private var affairDelImageView: ImageView = view.findViewById(R.id.del_affair_view)
 
         fun bind(affairs: AffairEntity) {
             //Glide.with(starImageView.context).load(affairs.url).into(starImageView)
-            starNameTW.text = affairs.name
+            affairNameTW.text = affairs.name
             //starDescTW.text = affairs.description
-            itemView.setOnClickListener { onStarClickListener(affairs) }
+            itemView.setOnClickListener { onAffairClickListener(affairs) }
+            affairOpenImageView.setOnClickListener {
+                listener.openElement(affairs)
+            }
+            affairDelImageView.setOnClickListener {
+                listener.delElement(affairs)
+            }
         }
 
     }
