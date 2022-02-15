@@ -1,6 +1,12 @@
 package com.example.materialdesign.view
 
+import android.graphics.Color
+import android.graphics.Typeface.BOLD
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +42,22 @@ class SettingFragment : Fragment() {
             applyAppTheme()
 
         }
+
+        val spannable = SpannableString(anytextView.text)
+
+        spannable.setSpan(
+            ForegroundColorSpan(Color.BLUE),
+            0, 8,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        spannable.setSpan(
+            ForegroundColorSpan(Color.RED),
+            9, 17,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        anytextView.text = spannable
     }
 
     private fun applyAppTheme() {
