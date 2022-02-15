@@ -7,11 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.example.materialdesign.recyclerview.fragment.editNotes.EditNotesFragment
+import com.example.materialdesign.recyclerview.myInterface.ActivityCallableInterface
 import com.example.materialdesign.view.ImageFragment
-import com.example.materialdesign.view.ImageFragmentLesson3
 import com.example.materialdesign.view.SettingFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ActivityCallableInterface {
 
     private val appTheme by lazy { AppTheme() }
 
@@ -26,15 +27,38 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
 
-            // lesson2
+            // lesson2,lesson4,,lesson5
             //openImageFragment()
 
             //lesson3
+            /*
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
                     .addToBackStack(null)
                 add<ImageFragmentLesson3>(R.id.imageFragment)
             }
+
+             */
+            // lesson4 эксперименты
+            /*
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+                .addToBackStack(null)
+            add<FragmentLesson4>(R.id.imageFragment)
+        }
+             */
+
+            // lesson 6
+            /*
+                supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                        .addToBackStack(null)
+                    add<RecyclerViewFragment>(R.id.imageFragment)
+                }
+                */
+
+            //lesson7
+            openImageFragment()
 
         }
     }
@@ -75,4 +99,17 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun callEditionFragment(id: String) {
+
+        //val bundle = Bundle()
+        // bundle.putString(NoteEntity::class.simpleName,id)
+        supportFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .addToBackStack(null)
+            .replace(R.id.imageFragment, EditNotesFragment.newInstance(id))
+            .commit()
+
+    }
+
 }

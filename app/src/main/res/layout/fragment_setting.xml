@@ -19,4 +19,14 @@
         android:layout_height="wrap_content"
         android:text="@string/DarkTheme" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/anytextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:inputType="textMultiLine"
+        android:minHeight="48dp"
+        android:text="@string/HomeWork_7"
+        android:textSize="15dp" />
+
 </LinearLayout>
