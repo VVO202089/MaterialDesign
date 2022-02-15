@@ -8,7 +8,6 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.materialdesign.recyclerview.fragment.editNotes.EditNotesFragment
-import com.example.materialdesign.recyclerview.fragment.listNotesAndAffair.RecyclerViewFragment
 import com.example.materialdesign.recyclerview.myInterface.ActivityCallableInterface
 import com.example.materialdesign.view.ImageFragment
 import com.example.materialdesign.view.SettingFragment
@@ -50,11 +49,16 @@ class MainActivity : AppCompatActivity(), ActivityCallableInterface {
              */
 
             // lesson 6
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                    .addToBackStack(null)
-                add<RecyclerViewFragment>(R.id.imageFragment)
-            }
+            /*
+                supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                        .addToBackStack(null)
+                    add<RecyclerViewFragment>(R.id.imageFragment)
+                }
+                */
+
+            //lesson7
+            openImageFragment()
 
         }
     }
@@ -99,7 +103,7 @@ class MainActivity : AppCompatActivity(), ActivityCallableInterface {
     override fun callEditionFragment(id: String) {
 
         //val bundle = Bundle()
-       // bundle.putString(NoteEntity::class.simpleName,id)
+        // bundle.putString(NoteEntity::class.simpleName,id)
         supportFragmentManager.beginTransaction()
             .setReorderingAllowed(true)
             .addToBackStack(null)

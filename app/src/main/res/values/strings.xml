@@ -8,4 +8,5 @@
     <string name="search">Поиск</string>
     <string name="DarkTheme">Темная тема</string>
     <string name="recyclerViewName">Список заметок и дел</string>
+    <string name="HomeWork_7">Тестовое описание настроек. Нужно для домашнего задания по уроку 7</string>
 </resources>

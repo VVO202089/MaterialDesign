@@ -8,8 +8,8 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf = "parent"
-        app:layout_constraintBottom_toTopOf = "@+id/container_lesson3">
+        app:layout_constraintBottom_toTopOf="@+id/container_lesson3"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/main"
@@ -62,7 +62,8 @@
         android:id="@+id/container_lesson3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/nestedScrollView">
+        app:layout_constraintTop_toBottomOf="@+id/nestedScrollView"
+        app:layout_constraintBottom_toTopOf = "@+id/nasaImage_textView">
 
         <com.example.materialdesign.util.EquilateralImageView
             android:id="@+id/image_view_nasa_image"
@@ -71,7 +72,9 @@
             android:layout_gravity="center"
             android:contentDescription="@string/photo_of_the_day_stub"
             app:srcCompat="@drawable/ic_no_photo_vector" />
+
     </FrameLayout>
+
     <include layout="@layout/bottom_sheet_layout" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
